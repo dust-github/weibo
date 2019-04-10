@@ -13,7 +13,7 @@ class UsersController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth', [
-			'except' => ['create', 'store', 'confirmEmail']
+			'except' => ['create', 'store', 'show', 'confirmEmail']
 		]);
 
 		$this->middleware('guest', [
@@ -47,8 +47,6 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-    	$this->authorize('update', $user);
-
         $statuses = $user->statuses()
                             ->orderBy('created_at', 'desc')
                             ->paginate(10);
